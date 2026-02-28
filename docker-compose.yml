@@ -1,0 +1,15 @@
+services:
+  django:
+    container_name: django
+    build:
+      context: .
+    working_dir: /usr/src/app
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - SECRET_KEY=django-insecure-d(6uy^hz=h_yoj4nnvdu%--a7r&sxz!3jh^z0t^eo243@w^h+h
