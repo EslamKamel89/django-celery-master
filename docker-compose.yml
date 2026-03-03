@@ -1,4 +1,17 @@
 services:
+  redis:
+    container_name: django_redis
+    image: redis:8.4.2-alpine
+    ports:
+      - "6379:6379"
+  redisinsight:
+    image: redis/redisinsight
+    container_name: django_redis_insight
+    restart: always
+    depends_on:
+      - redis
+    ports:
+      - "5540:5540"
   django:
     container_name: django
     build:
@@ -9,6 +22,8 @@ services:
       - ./:/usr/src/app
     ports:
       - "8000:8000"
+    depends_on:
+      - redis
     environment:
       - DEBUG=1
       - ALLOWED_HOSTS=localhost,127.0.0.1

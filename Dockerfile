@@ -6,8 +6,8 @@ RUN apk add --no-cache gcc musl-dev libffi-dev
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
+COPY ./entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
 COPY . .
 EXPOSE 8000
-ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
