@@ -33,6 +33,7 @@ services:
     build:
       context: .
     working_dir: /usr/src/app
+    command: celery -A app worker --loglevel=info
     volumes:
       - ./:/usr/src/app
     depends_on:
