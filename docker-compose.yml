@@ -7,7 +7,7 @@ services:
   redisinsight:
     image: redis/redisinsight
     container_name: django_redis_insight
-    restart: always
+    # restart: always
     depends_on:
       - redis
     ports:
@@ -29,7 +29,7 @@ services:
       - ALLOWED_HOSTS=localhost,127.0.0.1
       - SECRET_KEY=django-insecure-d(6uy^hz=h_yoj4nnvdu%--a7r&sxz!3jh^z0t^eo243@w^h+h
   celery:
-    container_name: celery
+    # container_name: celery
     build:
       context: .
     working_dir: /usr/src/app
@@ -38,6 +38,7 @@ services:
       - ./:/usr/src/app
     depends_on:
       - redis
+      - django
     environment:
       - DEBUG=1
       - ALLOWED_HOSTS=localhost,127.0.0.1
