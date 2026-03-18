@@ -6,4 +6,8 @@ from django.conf import settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 app = Celery("app")
 app.config_from_object("django.conf:settings", namespace="CELERY")
+app.conf.task_routes = {
+    "cworker.tasks.task1": {"queue": "queue1"},
+    "cworker.tasks.task2": {"queue": "queue2"},
+}
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
