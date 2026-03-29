@@ -19,3 +19,10 @@ class TestChaining(View):
         task_chain = chain([task1.s(), task2.s(), task3.s()])  # type: ignore
         task_chain.apply_async()
         return JsonResponse({"message": task_chain.__str__()})
+
+
+class TestRateLimit(View):
+    def get(self, request: HttpRequest):
+        task_group = group([task1.s() for i in range(10)])  # type: ignore
+        task_group.apply_async()
+        return JsonResponse({"message": task_group.__str__()})

@@ -18,4 +18,5 @@ app.conf.broker_transport_options = {
 app.conf.task_default_queue = "celery"
 app.conf.task_default_priority = 5
 app.conf.worker_prefetch_multiplier = 1
+app.conf.task_default_rate_limit = "1/m"
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
