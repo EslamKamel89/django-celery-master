@@ -12,6 +12,15 @@ services:
       - redis
     ports:
       - "5540:5540"
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
   django:
     container_name: django
     build:
@@ -37,10 +46,11 @@ services:
     depends_on:
       - redis
       - django
+      - rabbitmq
     environment:
       - DEBUG=1
       - ALLOWED_HOSTS=localhost,127.0.0.1
       - SECRET_KEY=django-insecure-d(6uy^hz=h_yoj4nnvdu%--a7r&sxz!3jh^z0t^eo243@w^h+h
   celery:
     <<: *celery-base
-    command: celery -A app worker --loglevel=info -Q celery
+    command: celery -A app worker --loglevel=info -Q tasks
