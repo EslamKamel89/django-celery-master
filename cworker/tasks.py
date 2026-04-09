@@ -43,3 +43,11 @@ def task_priority_9(*args, **kwargs):
     print("Hello from celery worker task_priority_9")
     time.sleep(5)
     return {"status": "ok", "message": "task_priority_9"}
+
+
+@shared_task(queue="tasks")
+def test_passing_arguments(name: str, age: int):
+    print("hello from test passing arguments test")
+    time.sleep(5)
+    print(f"name: {name}, age: {age}")
+    return {"name": name, "age": age}

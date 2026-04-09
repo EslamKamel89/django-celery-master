@@ -7,4 +7,5 @@ urlpatterns: list[URLPattern] = [
     path("/test-chaining", views.TestChaining.as_view()),
     path("/test-rate-limit", views.TestRateLimit.as_view()),
     path("/test-task-priority", views.TestPriority.as_view()),
+    path("/test-passing-arguments", views.TestPassingArguments.as_view()),
 ]
